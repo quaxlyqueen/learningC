@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * Node struct for linked list.
+ */
 typedef struct node {
     int data;
     struct node *next;
@@ -8,45 +11,54 @@ typedef struct node {
 
 struct node *head = NULL;
 
+/*
+ * Iterate through the Linked List and print each element.
+ */
 void printList() {
     struct node *pointer = head;
     printf("printing list: \n");
     while(pointer != NULL) {
-        printf("data: %d", pointer->data);
+        printf("data: %d\n", pointer->data);
         pointer = pointer->next;
     }
 }
 
-void enqueue(int d) {
-    struct node* newNode = (struct node*)malloc(sizeof(node));
+/*
+ * Add a new Node to the beginning of the linked list.
+ */
+void push(int d) {
+    struct node *newNode = (struct node*)malloc(sizeof(node));
     newNode->data = d;
-
-    head->next = newNode;
+    newNode->next = head;
     head = newNode;
-    free(newNode);
 }
 
-int dequeue() {
-    //int value = tail->data;
-    //struct node *tail = NULL;
+/*
+ * Remove a Node from the beginning of the linked list.
+ */
+int pop() {
+    int value = head->data;
+    head = head->next;
 
-    //return value;
-    return 0;
+    return value;
 }
 
+/*
+ * Test client for linked list in stack structure.
+ */
 int main() {
     printf("Testing linked list functionality in C.\n");
 
     struct node *head = (struct node*)malloc(sizeof(node));
-    head->data = 5012;
-
-    printf("head data: %d\n", head->data);
 
     for (int i = 0; i < 10; i++) {
         printf("Adding %d to linked list\n", i);
-        //enqueue(i);
+        push(i);
     }
 
+    printList();
+
+    printf("Removing %d from linked list\n", pop());
     printList();
 
     return 0;
